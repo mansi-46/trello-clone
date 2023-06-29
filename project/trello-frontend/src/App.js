@@ -1,24 +1,20 @@
-// import logo from './logo.svg';
 import './App.css';
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes
-} from "react-router-dom";
 import Board from './pages/Boards';
 import BoardList from "./pages/ViewBoards";
+import {store} from "./store";
+import Router from './routes';
+import { Provider } from 'react-redux';
+import {BrowserRouter} from "react-router-dom";
 
 function App() {
   return (
       <>
-        <Router>
-          <Routes>
-            {/*<Route  path="/createBoard" element={<CreateBoardForm/>}/>*/}
-            <Route  path="/Boards" element={<Board/>}/>
-            <Route  path="/ViewBoards" element={<BoardList/>}/>
-          </Routes>
-        </Router>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <Router/>
+                </BrowserRouter>
+            </Provider>
       </>
   );
 }
