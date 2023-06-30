@@ -3,7 +3,10 @@ import G_14.trello.Board.model.Board;
 import G_14.trello.Board.Repo.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import G_14.trello.Workspace.repositories.WorkspaceRepository;
+import G_14.trello.Workspace.entities.Workspace;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -11,8 +14,11 @@ public class BoardService {
     @Autowired
     BoardRepository boardRepository;
 
-    public Board createBoard(Board board) {
-        //you have to check if there is already a board with the same name inside that workspace-- ask TA
+    @Autowired
+    WorkspaceRepository workspaceRepository;
+
+    public Board createBoard(Board board, Integer workspace_id) {
+
         boolean boardWithSameNameExists = false;
         List<Board> boards = boardRepository.findAll();
 
@@ -22,12 +28,19 @@ public class BoardService {
                 break;
             }
         }
-
-        if (boardWithSameNameExists) {
+        if(boardWithSameNameExists){
             return null;
         }
-
-        return boardRepository.save(board);
+        Workspace workspace = workspaceRepository.workspaceModelById(workspace_id);
+        List<Board> boardsOfWorkspace = workspace.getBoards();
+        if(boardsOfWorkspace.size() == 0){
+            boardsOfWorkspace = new ArrayList<>();
+        }
+        if(!boardsOfWorkspace.contains(board)) {
+            workspace.getBoards().add(board);
+            return boardRepository.save(board);
+        }
+        return null;
     }
 
     public boolean deleteBoard(String boardName) {
@@ -43,6 +56,15 @@ public class BoardService {
         List<Board> boards = boardRepository.findAll();
         return boards;
     }
+    public List<Board> findBoardsByWorkspace(Integer workspaceId) {
+        Workspace workspace = workspaceRepository.workspaceModelById(workspaceId);
+        List<Board> boardsOfWorkspace = workspace.getBoards();
+        if (workspace != null && boardsOfWorkspace != null) {
+            return boardsOfWorkspace;
+        }
+        return null;
+    }
+
     public Board findBoardById(Integer boardId) {
         return boardRepository.findById(boardId).orElse(null);
     }
