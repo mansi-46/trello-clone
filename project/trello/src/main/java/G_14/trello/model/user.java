@@ -1,42 +1,56 @@
 package G_14.trello.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
-public class user {
+public class User {
+
+    //Instance variables
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String fristName;
-    private String lastName;
+    @Column(name = "Email")
     private String email;
+    @Column(name = "Password")
     private String password;
+    @Column(name = "User_Name")
+    private String user_name;
 
-    public user() {
+    @Column(name = "Security_Question")
+    private String securityQuestion;
 
+
+    public User(int id, String email, String password, String user_name, String securityQuestion) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.user_name = user_name;
+        this.securityQuestion = securityQuestion;
+    }
+
+
+    //Zero argument constructor
+
+    public User(){
+
+    }
+
+
+    //Getters & Setters
+
+    public String getSecurityQuestion() {
+        return securityQuestion;
+    }
+
+    public void setSecurityQuestion(String securityQuestion) {
+        this.securityQuestion = securityQuestion;
+    }
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getFristName() {
-        return fristName;
-    }
-
-    public void setFristName(String fristName) {
-        this.fristName = fristName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -55,11 +69,11 @@ public class user {
         this.password = password;
     }
 
-    public user(int id, String fristName, String lastName, String email, String password) {
-        this.id = id;
-        this.fristName = fristName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+    public String getUser_name() {
+        return user_name;
+    }
+
+    public void setUser_name(String user_name) {
+        this.user_name = user_name;
     }
 }
