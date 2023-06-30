@@ -1,6 +1,6 @@
 package G_14.trello.Board.model;
 
-
+import G_14.trello.Workspace.entities.Workspace;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,5 +20,8 @@ public class Board {
 
     @Column(name = "workspace_name")
     private String workspaceName;
-}
 
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "workspace_id")
+//    private Workspace workspace;
+}
