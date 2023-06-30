@@ -1,17 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AppBar, Toolbar, Button, Menu, MenuItem } from '@mui/material';
 
 const Navigation = () => {
-    const [boardMenuAnchor, setBoardMenuAnchor] = React.useState(null);
-    const [workspaceMenuAnchor, setWorkspaceMenuAnchor] = React.useState(null);
-    const [createMenuAnchor, setCreateMenuAnchor] = React.useState(null);
+    const [workspaceMenuAnchor, setWorkspaceMenuAnchor] = useState(null);
+    const [workspaces, setWorkspaces] = useState([]);
 
-    const handleBoardMenuOpen = (event) => {
-        setBoardMenuAnchor(event.currentTarget);
-    };
+    useEffect(() => {
+        fetchWorkspaces();
+    }, []);
 
-    const handleBoardMenuClose = () => {
-        setBoardMenuAnchor(null);
+    const fetchWorkspaces = async () => {
+        try {
+            const response = await fetch('/getAllWorkspaces');
+            const data = await response.json();
+            setWorkspaces(data);
+        } catch (error) {
+            console.error('Error fetching workspaces:', error);
+        }
     };
 
     const handleWorkspaceMenuOpen = (event) => {
@@ -22,33 +28,16 @@ const Navigation = () => {
         setWorkspaceMenuAnchor(null);
     };
 
-    const handleSignOut = () => {
-        // Handle sign-out logic here
+    const handleWorkspaceMenuClick = (workspaceId) => {
+        handleWorkspaceMenuClose();
     };
-
-    const handleCreateMenuOpen = (event) =>{
-        setCreateMenuAnchor(event.currentTarget)
-    }
-
-    const handleCreateMenuClose = () =>{
-        setCreateMenuAnchor(null);
-    }
 
     return (
         <AppBar position="static">
             <Toolbar>
-                <Button onClick={handleBoardMenuOpen} color="inherit">
-                    Boards
+                <Button component={Link} to="/" color="inherit">
+                    Home
                 </Button>
-                <Menu
-                    anchorEl={boardMenuAnchor}
-                    open={Boolean(boardMenuAnchor)}
-                    onClose={handleBoardMenuClose}
-                >
-                    {/* Add dropdown menu items for boards */}
-                    <MenuItem onClick={handleBoardMenuClose}>Board 1</MenuItem>
-                    <MenuItem onClick={handleBoardMenuClose}>Board 2</MenuItem>
-                </Menu>
 
                 <Button onClick={handleWorkspaceMenuOpen} color="inherit">
                     Workspaces
@@ -58,26 +47,17 @@ const Navigation = () => {
                     open={Boolean(workspaceMenuAnchor)}
                     onClose={handleWorkspaceMenuClose}
                 >
-                    {/* Add dropdown menu items for workspaces */}
-                    <MenuItem onClick={handleWorkspaceMenuClose}>Workspace 1</MenuItem>
-                    <MenuItem onClick={handleWorkspaceMenuClose}>Workspace 2</MenuItem>
+                    {workspaces.map((workspace) => (
+                        <MenuItem
+                            key={workspace.id}
+                            onClick={() => handleWorkspaceMenuClick(workspace.id)}
+                        >
+                            {workspace.name}
+                        </MenuItem>
+                    ))}
                 </Menu>
-
-                <Button onClick={handleCreateMenuOpen} color="inherit">
+                <Button component={Link} to="/WorkspaceCreate" color="inherit">
                     Create
-                </Button>
-                <Menu
-                    anchorEl={createMenuAnchor}
-                    open={Boolean(createMenuAnchor)}
-                    onClose={handleCreateMenuClose}
-                >
-                    {/* Add dropdown menu items for workspaces */}
-                    <MenuItem onClick={handleCreateMenuClose}>Workspace</MenuItem>
-                    <MenuItem onClick={handleCreateMenuClose}>Board</MenuItem>
-                </Menu>
-
-                <Button onClick={handleSignOut} color="inherit">
-                    Sign Out
                 </Button>
             </Toolbar>
         </AppBar>
