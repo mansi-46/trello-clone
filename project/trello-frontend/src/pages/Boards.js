@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Typography, TextField, Button } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
-function Board() {
+
+
+function Boards() {
+    const { workspaceId } = useParams();
     const [boardName, setBoardName] = useState('');
-    const [workspaceId, setWorkspaceId] = useState('');
     const [boards, setBoards] = useState([]);
 
+
+
     useEffect(() => {
-        fetch('http://localhost:8080/boards/getAllBoards')
+        fetch(`http://localhost:8080/boards/getBoardsByWorkspace?workspaceId=${workspaceId}`)
             .then(response => response.json())
             .then(data => setBoards(data))
             .catch(error => console.error('Error:', error));
-    }, []);
+    }, [workspaceId]);
+
+
 
     const handleCreateBoard = () => {
         if (!boardName || !workspaceId) {
@@ -23,6 +30,8 @@ function Board() {
             workspaceId: workspaceId,
             picture: 'https://w7.pngwing.com/pngs/429/972/png-transparent-green-chalk-board-cartoon-blackboard-cartoon-green-chalkboard-miscellaneous-cartoon-character-english.png',
         };
+
+
 
         fetch(`http://localhost:8080/boards/createBoard/${workspaceId}`, {
             method: 'POST',
@@ -36,12 +45,13 @@ function Board() {
                 console.log(data);
                 setBoards([...boards, data]);
                 setBoardName('');
-                setWorkspaceId('');
             })
             .catch(error => {
                 console.error(error);
             });
     };
+
+
 
     return (
         <div style={{ padding: 16 }}>
@@ -64,7 +74,7 @@ function Board() {
                         variant="outlined"
                         fullWidth
                         value={workspaceId}
-                        onChange={e => setWorkspaceId(e.target.value)}
+                        disabled
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -77,4 +87,6 @@ function Board() {
     );
 }
 
-export default Board;
+
+
+export default Boards;

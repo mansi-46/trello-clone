@@ -34,7 +34,7 @@ public class WorkspaceController {
     }
 
 
-    @GetMapping("/getWorkspaceById/{id}")
+    @GetMapping("/editWorkspaceById/{id}")
     @ResponseBody
     public Map edit(@PathVariable Integer id) {
         Workspace workspace = workspaceService.getWorkspaceById(id);
