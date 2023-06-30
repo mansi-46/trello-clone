@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardContent, Typography, Button } from '@mui/material';
 
-function BoardList() {
+function ViewBoards() {
     const [boards, setBoards] = useState([]);
 
     useEffect(() => {
@@ -10,7 +10,6 @@ function BoardList() {
             .then(data => setBoards(data))
             .catch(error => console.error('Error:', error));
     }, []);
-
     const handleDeleteBoard = (boardName) => {
         fetch(`http://localhost:8080/boards/deleteBoard?boardName=${boardName}`, {
             method: 'POST',
@@ -56,5 +55,5 @@ function BoardList() {
     );
 }
 
-export default BoardList;
+export default ViewBoards;
 

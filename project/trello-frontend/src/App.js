@@ -1,7 +1,5 @@
 import './App.css';
 import React from "react";
-import Board from './pages/Boards';
-import BoardList from "./pages/ViewBoards";
 import {store} from "./store";
 import Router from './routes';
 import { Provider } from 'react-redux';
