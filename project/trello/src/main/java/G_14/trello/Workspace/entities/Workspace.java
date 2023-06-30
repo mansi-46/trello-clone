@@ -1,6 +1,7 @@
 package G_14.trello.Workspace.entities;
 import G_14.trello.Board.model.Board;
 import jakarta.persistence.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class Workspace {
 //    private List<Board> listOfWorkSpaceBoards;
 //
 //    public List<Board> getListOfBoardsForAWorkspace() {
+
 //        return listOfWorkSpaceBoards;
 //    }
 //    public void setListOfBoardsForAWorkspace(List<Board> listOfWorkSpaceBoards) {

@@ -1,32 +1,20 @@
-import {Button, TextField, Typography} from "@mui/material";
-import {Field, Form, Formik} from "formik";
-import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
-import navigation from "./Navigation";
-import {useEffect, useState} from "react";
+import React, { useState } from 'react';
+import { Button, TextField, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 
-export default function WorkspaceCreateForm() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-
+export default function WorkspaceCreateForm({ onWorkspaceCreated }) {
     const [workspaceName, setWorkspaceName] = useState('');
-    const [workspaceDescription, setWorkspaceDescription] = useState('');
-
-    useEffect(() => {
-        fetch('http://localhost:8080/getAllWorkspaces')
-            .then(response => response.json())
-            .then(data => setWorkspaceName(data))
-            .catch(error => console.error('Error:', error));
-    }, []);
+    const [description, setDescription] = useState('');
+    const [workspaceType, setWorkspaceType] = useState('');
 
     const handleCreateWorkspace = () => {
-        if (!workspaceDescription || !workspaceName) {
-            alert('Please enter both workspace description and workspace name.');
+        if (!description || !workspaceName || !workspaceType) {
+            alert('Please enter workspace name, description, and type.');
             return;
         }
         const newWorkspace = {
-            workspaceDescription: workspaceDescription,
+            description: description,
             workspaceName: workspaceName,
+            workspaceType: workspaceType,
         };
 
         fetch('http://localhost:8080/workspace/new', {
@@ -39,9 +27,11 @@ export default function WorkspaceCreateForm() {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                setWorkspaceName([...workspaceName, data]);
                 setWorkspaceName('');
-                setWorkspaceDescription('');
+                setDescription('');
+                setWorkspaceType('');
+                // Pass the created workspace back to the parent component
+                onWorkspaceCreated(data);
             })
             .catch(error => {
                 console.error(error);
@@ -49,41 +39,53 @@ export default function WorkspaceCreateForm() {
     };
 
     return (
-        <Formik>
-            <Form>
-                <div>
-                    <h3>Workspace Name:</h3>
-                </div>
-                <div>
-                    <TextField
-                        label="Name"
-                        variant="outlined"
-                        value={workspaceName}
-                        onChange={(e) => setWorkspaceName(e.target.value)}
-
-                    />
-                </div>
-                <div>
-                    <h3>
-                        Description of Workspace:
-                    </h3>
-                </div>
-                <div>
-                    <TextField
-                        label="Description"
-                        variant="outlined"
-                        value={workspaceDescription}
-                        onChange={(e) => setWorkspaceDescription(e.target.value)}
-
-                    />
-                </div>
-                <br/>
-                <div>
-                    <Button variant="contained" color="primary" onClick={handleCreateWorkspace}>
-                        Create Workspace
-                    </Button>
-                </div>
-            </Form>
-        </Formik>
-    )
+        <div>
+            <div>
+                <h3>Workspace Name:</h3>
+            </div>
+            <div>
+                <TextField
+                    label="Name"
+                    variant="outlined"
+                    value={workspaceName}
+                    onChange={e => setWorkspaceName(e.target.value)}
+                />
+            </div>
+            <div>
+                <h3>Description of Workspace:</h3>
+            </div>
+            <div>
+                <TextField
+                    label="Description"
+                    variant="outlined"
+                    value={description}
+                    onChange={e => setDescription(e.target.value)}
+                />
+            </div>
+            <div>
+                <h3>Workspace Type:</h3>
+            </div>
+            <div>
+                <FormControl variant="outlined" style={{ width: '100%' }}>
+                    <InputLabel>Type</InputLabel>
+                    <Select
+                        value={workspaceType}
+                        onChange={e => setWorkspaceType(e.target.value)}
+                        label="Type"
+                    >
+                        <MenuItem value="Type 1">Type 1</MenuItem>
+                        <MenuItem value="Type 2">Type 2</MenuItem>
+                        <MenuItem value="Type 3">Type 3</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
+            <br />
+            <div>
+                <Button variant="contained" color="primary" onClick={handleCreateWorkspace}>
+                    Create Workspace
+                </Button>
+            </div>
+        </div>
+    );
 }
+
