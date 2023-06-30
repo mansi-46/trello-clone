@@ -1,5 +1,6 @@
 package G_14.trello.Board.model;
 
+
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -1,7 +1,7 @@
 package G_14.trello.Workspace.controllers;
 
 import G_14.trello.Workspace.entities.Workspace;
-import G_14.trello.Workspace.WorkspaceService;
+import G_14.trello.Workspace.services.WorkspaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

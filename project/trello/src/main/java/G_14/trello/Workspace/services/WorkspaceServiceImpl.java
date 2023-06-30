@@ -1,7 +1,7 @@
-package com.education.services;
+package G_14.trello.Workspace.services;
 
-import com.education.entities.Workspace;
-import com.education.repositories.WorkspaceRepository;
+import G_14.trello.Workspace.entities.Workspace;
+import G_14.trello.Workspace.repositories.WorkspaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

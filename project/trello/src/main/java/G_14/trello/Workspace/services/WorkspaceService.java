@@ -1,6 +1,6 @@
-package com.education.services;
+package G_14.trello.Workspace.services;
 
-import com.education.entities.Workspace;
+import G_14.trello.Workspace.entities.Workspace;
 
 public interface WorkspaceService {
 
