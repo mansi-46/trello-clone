@@ -16,15 +16,15 @@ public class User {
     @Column(name = "user_name")
     private String user_name;
 
-    @Column(name = "securityquestion")
-    private String securityquestion;
+    @Column(name = "security_question")
+    private String security_question;
 
 
-    public User( String email, String password, String userName, String securityquestion) {
+    public User( String email, String password, String userName, String security_question) {
         this.email = email;
         this.password = password;
         this.user_name = userName;
-        this.securityquestion = securityquestion;
+        this.security_question = security_question;
     }
 
 //    public User (String email, String password){
@@ -43,11 +43,11 @@ public class User {
     //Getters & Setters
 
     public String getSecurityQuestion() {
-        return securityquestion;
+        return security_question;
     }
 
     public void setSecurityQuestion(String securityQuestion) {
-        this.securityquestion = securityQuestion;
+        this.security_question = securityQuestion;
     }
     public int getId() {
         return id;
