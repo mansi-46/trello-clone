@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+    @CrossOrigin( )
     @RestController
     @RequestMapping("/users")
 
@@ -30,22 +31,17 @@ import org.springframework.web.bind.annotation.*;
                 }
             }
 
-            @PostMapping("/login")
-            public ResponseEntity<String> loginUser(@RequestBody User user) {
-                // Implement login logic
-                User existingUser = userService.findByEmail(user.getEmail());
-                if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-                    // Perform authentication logic
-                    // Set authentication flag, generate token, etc.
-                    // userService.authenticateUser(existingUser);
-
+            @GetMapping("/login")
+            public ResponseEntity<String> loginUser(@RequestParam("email") String email, @RequestParam("password") String password) {
+                User existingUser = userService.findByEmail(email);
+                if (existingUser != null && existingUser.getPassword().equals(password)) {
                     return ResponseEntity.ok("User logged in successfully!");
                 } else {
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
                 }
             }
 
-            @PostMapping("/reset-password")
+        @GetMapping("/reset-password")
             public ResponseEntity<String> resetPassword(@RequestBody User user) {
                 // Implement password reset logic
                 User existingUser = userService.findByEmail(user.getEmail());
