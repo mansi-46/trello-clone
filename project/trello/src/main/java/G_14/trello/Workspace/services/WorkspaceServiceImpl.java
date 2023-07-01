@@ -42,7 +42,7 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     @Autowired
     BoardService boardService;
     @Override
-    public boolean updateBoard(Integer workspace_id, Integer board_id)
+    public boolean addBoard(Integer workspace_id, Integer board_id)
     {
         Optional<Workspace> workspace=null;
         workspace= workspaceRepository.findById(workspace_id);

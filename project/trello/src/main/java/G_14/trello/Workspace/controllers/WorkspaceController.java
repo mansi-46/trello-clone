@@ -96,10 +96,10 @@ public class WorkspaceController {
         return responce;
     }
 
-    @PutMapping("assignWorkspace/{workspace_id}")
+    @PutMapping("giveWorkspace/{workspace_id}")
     public String updateBoard(@PathVariable Integer workspace_id, @RequestParam Integer board_id)
     {
-        if(workspaceService.updateBoard(workspace_id,board_id))
+        if(workspaceService.addBoard(workspace_id,board_id))
         {
             return "Board was successfully added to the workspace ";
         }

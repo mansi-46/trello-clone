@@ -11,7 +11,6 @@ const WorkspaceEdit = () => {
     });
 
     useEffect(() => {
-        // Simulate fetching workspace data from an API
         fetch(`http://localhost:8080/workspaces/${id}`)
             .then(response => response.json())
             .then(data => {

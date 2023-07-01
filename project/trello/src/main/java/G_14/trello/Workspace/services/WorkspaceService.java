@@ -15,7 +15,7 @@ public interface WorkspaceService {
 
     void deleteWorkspace(Integer id);
 
-    boolean updateBoard(Integer workspace_id, Integer board_id);
+    boolean addBoard(Integer workspace_id, Integer board_id);
     List<Board> boards(Integer workspace_id);
 
 }

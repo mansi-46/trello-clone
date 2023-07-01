@@ -73,9 +73,9 @@ export default function WorkspaceCreateForm({ onWorkspaceCreated }) {
                         onChange={e => setWorkspaceType(e.target.value)}
                         label="Type"
                     >
-                        <MenuItem value="Type 1">Type 1</MenuItem>
-                        <MenuItem value="Type 2">Type 2</MenuItem>
-                        <MenuItem value="Type 3">Type 3</MenuItem>
+                        <MenuItem value="education">education</MenuItem>
+                        <MenuItem value="work">work</MenuItem>
+                        <MenuItem value="project">project</MenuItem>
                     </Select>
                 </FormControl>
             </div>
