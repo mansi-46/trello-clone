@@ -61,11 +61,11 @@ import org.springframework.web.bind.annotation.*;
                 }
         }
 
-        @GetMapping("/forgot-password/{email}/{securityQuestion}")
+        @GetMapping("/forgot-password/{email}/{securityquestion}")
         public ResponseEntity<String> forgotPassword(@RequestBody User user) {
             User existingUser = userService.findUserByEmail(user.getEmail());
 
-            if (existingUser != null && existingUser.getSecurityQuestion().equals(user.getSecurityQuestion())) {
+            if (existingUser != null && existingUser.getSecurityQuestion().equals(user.getSecurityQuestion())){
 
                 return ResponseEntity.ok("Correct user credentials");
             } else {
