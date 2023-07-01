@@ -63,9 +63,18 @@ public class UserServiceImplementation implements UserService {
     }
 
 
-    public User findByEmail(String email) {
-        User user = userRepository.findByEmail(email);
-        System.out.println("Successfully fetched user information by email: " + email);
-        return user;
+    public User findUserByEmail(String email) {
+        try {
+            User user = userRepository.findUserByEmail(email);
+            if (user != null) {
+                System.out.println("Successfully fetched user information by email: " + email);
+            } else {
+                System.out.println("User not found for email: " + email);
+            }
+            return user;
+        } catch (Exception e) {
+            System.out.println("An error occurred while fetching user information: " + e.getMessage());
+            return null; // or throw an exception or handle the error appropriately
+        }
     }
 }

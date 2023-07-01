@@ -28,10 +28,10 @@ public class User {
         this.securityQuestion = securityQuestion;
     }
 
-    public User (String email, String password){
-        this.email = email;
-        this.password = password;
-    }
+//    public User (String email, String password){
+//        this.email = email;
+//        this.password = password;
+//    }
 
 
     //Zero argument constructor
