@@ -34,13 +34,13 @@ class BoardControllerTest {
         boardCreated.setBoardName("Test Board");
         boardCreated.setId(1);
 
-        when(boardService.createBoard(board)).thenReturn(boardCreated);
+        when(boardService.createBoard(board,1)).thenReturn(boardCreated);
 
-        ResponseEntity<Board> response = boardController.createBoard(board);
+        ResponseEntity<Board> response = boardController.createBoard(board,1);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(boardCreated, response.getBody());
-        verify(boardService, times(1)).createBoard(board);
+        verify(boardService, times(1)).createBoard(board,1);
     }
 
     @Test

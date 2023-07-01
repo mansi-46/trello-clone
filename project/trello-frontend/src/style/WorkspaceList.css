@@ -1,0 +1,7 @@
+.workspace-card {
+    margin-bottom: 16px;
+}
+
+.workspace-card-content {
+    background-image: linear-gradient(to right, #e5f2ff, #f5f9ff);
+}

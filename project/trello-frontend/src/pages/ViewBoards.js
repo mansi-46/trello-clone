@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Grid, Card, CardContent, Typography, Button } from '@mui/material';
+import {useParams} from "react-router-dom";
 
-function BoardList() {
+function ViewBoards() {
+    const { workspaceId } = useParams();
     const [boards, setBoards] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/boards/getAllBoards')
+        fetch(`http://localhost:8080/boards/getBoardsByWorkspace?workspaceId=${workspaceId}`)
             .then(response => response.json())
             .then(data => setBoards(data))
             .catch(error => console.error('Error:', error));
     }, []);
-
     const handleDeleteBoard = (boardName) => {
         fetch(`http://localhost:8080/boards/deleteBoard?boardName=${boardName}`, {
             method: 'POST',
@@ -56,4 +57,5 @@ function BoardList() {
     );
 }
 
-export default BoardList;
+export default ViewBoards;
+

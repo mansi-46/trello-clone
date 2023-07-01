@@ -1,29 +1,30 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid, Typography, TextField, Button } from '@mui/material';
-function Board() {
+import { useParams } from 'react-router-dom';
+
+function Boards() {
+    const { workspaceId } = useParams();
     const [boardName, setBoardName] = useState('');
-    const [workspaceName, setWorkspaceName] = useState('');
     const [boards, setBoards] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/boards/getAllBoards')
+        fetch(`http://localhost:8080/boards/getBoardsByWorkspace?workspaceId=${workspaceId}`)
             .then(response => response.json())
             .then(data => setBoards(data))
             .catch(error => console.error('Error:', error));
-    }, []);
+    }, [workspaceId]);
 
     const handleCreateBoard = () => {
-        if (!boardName || !workspaceName) {
-            alert('Please enter both board name and workspace name.');
+        if (!boardName || !workspaceId) {
+            alert('Please enter both board name and workspace ID.');
             return;
         }
         const newBoard = {
             boardName: boardName,
-            workspaceName: workspaceName,
-            picture: 'https://w7.pngwing.com/pngs/429/972/png-transparent-green-chalk-board-cartoon-blackboard-cartoon-green-chalkboard-miscellaneous-cartoon-character-english.png',
+            workspaceId: workspaceId,
         };
 
-        fetch('http://localhost:8080/boards/createBoard', {
+        fetch(`http://localhost:8080/boards/createBoard/${workspaceId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,12 +36,13 @@ function Board() {
                 console.log(data);
                 setBoards([...boards, data]);
                 setBoardName('');
-                setWorkspaceName('');
             })
             .catch(error => {
                 console.error(error);
             });
     };
+
+
 
     return (
         <div style={{ padding: 16 }}>
@@ -54,16 +56,16 @@ function Board() {
                         variant="outlined"
                         fullWidth
                         value={boardName}
-                        onChange={(e) => setBoardName(e.target.value)}
+                        onChange={e => setBoardName(e.target.value)}
                     />
                 </Grid>
                 <Grid item xs={6}>
                     <TextField
-                        label="Workspace Name"
+                        label="Workspace ID"
                         variant="outlined"
                         fullWidth
-                        value={workspaceName}
-                        onChange={(e) => setWorkspaceName(e.target.value)}
+                        value={workspaceId}
+                        disabled
                     />
                 </Grid>
                 <Grid item xs={12}>
@@ -76,4 +78,6 @@ function Board() {
     );
 }
 
-export default Board;
+
+
+export default Boards;
