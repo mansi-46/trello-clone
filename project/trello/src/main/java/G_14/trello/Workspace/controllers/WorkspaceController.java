@@ -33,8 +33,32 @@ public class WorkspaceController {
         return responce;
     }
 
+    @PutMapping("/updateWorkspace/{id}")
+    @ResponseBody
+    public Map updateWorkspace(@PathVariable Integer id, @RequestBody Workspace updatedWorkspace) {
+        Workspace workspace = workspaceService.getWorkspaceById(id);
 
-    @GetMapping("/editWorkspaceById/{id}")
+        if (workspace != null) {
+// Update the workspace with the new values
+            workspace.setWorkspaceName(updatedWorkspace.getWorkspaceName());
+            workspace.setWorkspaceType(updatedWorkspace.getWorkspaceType());
+            workspace.setDescription(updatedWorkspace.getDescription());
+            workspaceService.saveWorkspace(workspace);
+
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("data", workspace);
+            return response;
+        } else {
+// Workspace not found
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", "Workspace not found");
+            return response;
+        }
+    }
+
+    @GetMapping("/getWorkspaceById/{id}")
     @ResponseBody
     public Map edit(@PathVariable Integer id) {
         Workspace workspace = workspaceService.getWorkspaceById(id);

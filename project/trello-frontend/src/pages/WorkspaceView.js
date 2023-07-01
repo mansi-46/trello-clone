@@ -51,19 +51,6 @@ function WorkspaceList() {
                         <Typography variant="body2" color="text.secondary">
                             {workspace.description}
                         </Typography>
-                        <Button onClick={() => handleViewBoards(workspace.id)} variant="outlined">
-                            View Boards
-                        </Button>
-                        {workspace.boards && workspace.boards.length > 0 && (
-                            <div>
-                                <h3>Boards:</h3>
-                                <ul>
-                                    {workspace.boards.map(board => (
-                                        <li key={board.id}>{board.boardName}</li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
                         <Button
                             variant="contained"
                             color="primary"
@@ -81,7 +68,7 @@ function WorkspaceList() {
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => handleEditWorkspace(workspace.id)}
+                            onClick={() => navigate(`/workspaceEdit/${workspace.id}`)}
                         >
                             Edit Description
                         </Button>

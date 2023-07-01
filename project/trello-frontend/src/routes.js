@@ -42,7 +42,7 @@ export default function Router() {
                     element: <WorkspaceEdit/>
                 },
                 {
-                    path: 'workspace/edit/:workspaceID',
+                    path: '/workspaceEdit/:workspaceID',
                     element: <WorkspaceEdit/>
                 },
                 { path: 'boards/ViewBoards/:workspaceId',
