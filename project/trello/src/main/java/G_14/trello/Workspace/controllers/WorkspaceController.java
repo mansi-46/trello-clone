@@ -39,7 +39,7 @@ public class WorkspaceController {
         Workspace workspace = workspaceService.getWorkspaceById(id);
 
         if (workspace != null) {
-// Update the workspace with the new values
+            // Update the workspace with the new value.
             workspace.setWorkspaceName(updatedWorkspace.getWorkspaceName());
             workspace.setWorkspaceType(updatedWorkspace.getWorkspaceType());
             workspace.setDescription(updatedWorkspace.getDescription());
@@ -50,7 +50,7 @@ public class WorkspaceController {
             response.put("data", workspace);
             return response;
         } else {
-// Workspace not found
+            // Workspace not found
             HashMap<String, Object> response = new HashMap<>();
             response.put("status", "error");
             response.put("message", "Workspace not found");

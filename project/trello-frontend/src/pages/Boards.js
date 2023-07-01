@@ -2,14 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Grid, Typography, TextField, Button } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
-
-
 function Boards() {
     const { workspaceId } = useParams();
     const [boardName, setBoardName] = useState('');
     const [boards, setBoards] = useState([]);
-
-
 
     useEffect(() => {
         fetch(`http://localhost:8080/boards/getBoardsByWorkspace?workspaceId=${workspaceId}`)
@@ -28,10 +24,7 @@ function Boards() {
         const newBoard = {
             boardName: boardName,
             workspaceId: workspaceId,
-            picture: 'https://w7.pngwing.com/pngs/429/972/png-transparent-green-chalk-board-cartoon-blackboard-cartoon-green-chalkboard-miscellaneous-cartoon-character-english.png',
         };
-
-
 
         fetch(`http://localhost:8080/boards/createBoard/${workspaceId}`, {
             method: 'POST',

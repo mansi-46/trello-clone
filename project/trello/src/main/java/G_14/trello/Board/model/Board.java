@@ -20,8 +20,4 @@ public class Board {
 
     @Column(name = "workspace_name")
     private String workspaceName;
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "workspace_id")
-//    private Workspace workspace;
 }

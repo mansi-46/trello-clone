@@ -2,19 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function WorkspaceList() {
     const [workspaces, setWorkspaces] = useState([]);
     const navigate = useNavigate();
 
-
-
     useEffect(() => {
         fetchWorkspaces();
     }, []);
-
-
 
     const fetchWorkspaces = async () => {
         try {
@@ -25,19 +19,6 @@ function WorkspaceList() {
             console.log('Error fetching workspaces:', error);
         }
     };
-
-
-
-    const handleViewBoards = async (workspaceId) => {
-        navigate(`/ViewBoards/${workspaceId}`);
-    };
-
-    const handleEditWorkspace = async (workspaceID) => {
-        navigate(`/workspaceEdit/${workspaceID}`)
-    }
-
-
-
 
     return (
         <div>
@@ -68,9 +49,9 @@ function WorkspaceList() {
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={() => navigate(`/workspaceEdit/${workspace.id}`)}
+                            onClick={() => navigate(`/WorkspaceEdit/${workspace.id}`)}
                         >
-                            Edit Description
+                            Edit Workspace Details
                         </Button>
                     </CardContent>
                 </Card>

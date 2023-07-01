@@ -45,47 +45,38 @@ public class WorkspaceServiceImpl implements WorkspaceService {
     public boolean updateBoard(Integer workspace_id, Integer board_id)
     {
         Optional<Workspace> workspace=null;
-        try
+        workspace= workspaceRepository.findById(workspace_id);
+        if(workspace.isPresent())
         {
-            workspace= workspaceRepository.findById(workspace_id);
-            if(workspace.isPresent())
+            Workspace Workspace=workspace.get();
+            Board board= boardService.findBoardById(board_id);
+            if(board!=null)
             {
-                Workspace workspaceModel=workspace.get();
-                Board boardModel= boardService.findBoardById(board_id);
-                if(boardModel!=null)
+                List<Board> listOfBoards= workspace.get().getBoards();
+                if(listOfBoards.size()==0)
                 {
-                    List<Board> listOfBoards= workspace.get().getBoards();
-                    if(listOfBoards.size()==0)
-                    {
-                        listOfBoards=new ArrayList<>();
-                    }
-                    if(!listOfBoards.contains(boardModel))
-                    {
-                        listOfBoards.add(boardModel);
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                    workspaceModel.setBoards(listOfBoards);
+                    listOfBoards=new ArrayList<>();
+                }
+                if(!listOfBoards.contains(board))
+                {
+                    listOfBoards.add(board);
                 }
                 else
                 {
                     return false;
                 }
-                return true;
+                Workspace.setBoards(listOfBoards);
             }
-            else {
+            else
+            {
                 return false;
             }
+            return true;
         }
-        catch (Exception exception)
-        {
-            exception.printStackTrace();
+        else {
+            return false;
         }
-        return false;
     }
-    //returning the list of boards for a workspace
     public List<Board> boards(Integer workspace_id){
         Workspace workspaceModel=workspaceRepository.workspaceModelById(workspace_id);
         return workspaceModel.getBoards();
