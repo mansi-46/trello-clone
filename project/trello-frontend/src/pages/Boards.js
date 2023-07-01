@@ -14,8 +14,6 @@ function Boards() {
             .catch(error => console.error('Error:', error));
     }, [workspaceId]);
 
-
-
     const handleCreateBoard = () => {
         if (!boardName || !workspaceId) {
             alert('Please enter both board name and workspace ID.');

@@ -20,6 +20,17 @@ public class Workspace {
     private String workspaceType;
     private String description;
 
+    public List<String> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<String> users) {
+        this.users = users;
+    }
+
+    @ElementCollection
+    private List<String> users; // List to store user names
+
     @OneToMany(targetEntity = Board.class)
     @JoinColumn(name= "workspace_id")
     private List<Board> boards;

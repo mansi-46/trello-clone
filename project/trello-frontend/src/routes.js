@@ -8,7 +8,6 @@ import Board from "./pages/Boards";
 import WorkspaceView from "./pages/WorkspaceView";
 import WorkspaceEdit from "./pages/WorkspaceEdit";
 
-
 export default function Router() {
     return useRoutes([
         {

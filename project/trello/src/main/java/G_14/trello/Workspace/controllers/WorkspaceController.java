@@ -1,5 +1,4 @@
 package G_14.trello.Workspace.controllers;
-
 import G_14.trello.Board.model.Board;
 import G_14.trello.Workspace.entities.Workspace;
 import G_14.trello.Workspace.services.WorkspaceService;
@@ -109,5 +108,27 @@ public class WorkspaceController {
     @GetMapping("boardsList/{workspace_id}")
     public List<Board> getListOfBoards(@PathVariable Integer workspace_id){
         return workspaceService.boards(workspace_id);
+    }
+
+    @PutMapping("/addUserToWorkspace/{workspaceId}")
+    @ResponseBody
+    public Map addUserToWorkspace(@PathVariable Integer workspaceId, @RequestBody Map<String, String> user) {
+        Workspace workspace = workspaceService.getWorkspaceById(workspaceId);
+
+        if (workspace != null) {
+            String userName = user.get("name");
+            workspace.getUsers().add(userName);
+            workspaceService.saveWorkspace(workspace);
+
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("status", "success");
+            response.put("data", workspace);
+            return response;
+        } else {
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("status", "error");
+            response.put("message", "Workspace not found");
+            return response;
+        }
     }
 }
