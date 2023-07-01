@@ -13,18 +13,18 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "User_Name")
-    private String user_name;
+    @Column(name = "userName")
+    private String userName;
 
-    @Column(name = "Security_Question")
+    @Column(name = "securityQuestion")
     private String securityQuestion;
 
 
-    public User(int id, String email, String password, String user_name, String securityQuestion) {
-        this.id = id;
+    public User( String email, String password, String userName, String securityQuestion) {
+        //this.id = id;
         this.email = email;
         this.password = password;
-        this.user_name = user_name;
+        this.userName = userName;
         this.securityQuestion = securityQuestion;
     }
 
@@ -75,10 +75,10 @@ public class User {
     }
 
     public String getUser_name() {
-        return user_name;
+        return userName;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public void setUser_name(String userName) {
+        this.userName = userName;
     }
 }
