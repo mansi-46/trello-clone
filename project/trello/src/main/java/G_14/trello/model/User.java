@@ -13,19 +13,18 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
-    @Column(name = "userName")
-    private String userName;
+    @Column(name = "user_ame")
+    private String user_name;
 
-    @Column(name = "securityQuestion")
-    private String securityQuestion;
+    @Column(name = "security_question")
+    private String security_question;
 
 
     public User( String email, String password, String userName, String securityQuestion) {
-        //this.id = id;
         this.email = email;
         this.password = password;
-        this.userName = userName;
-        this.securityQuestion = securityQuestion;
+        this.user_name = userName;
+        this.security_question = securityQuestion;
     }
 
 //    public User (String email, String password){
@@ -44,11 +43,11 @@ public class User {
     //Getters & Setters
 
     public String getSecurityQuestion() {
-        return securityQuestion;
+        return security_question;
     }
 
-    public void setSecurityQuestion(String securityQuestion) {
-        this.securityQuestion = securityQuestion;
+    public void setSecurity_Question(String securityQuestion) {
+        this.security_question = securityQuestion;
     }
     public int getId() {
         return id;
@@ -75,10 +74,10 @@ public class User {
     }
 
     public String getUser_name() {
-        return userName;
+        return user_name;
     }
 
     public void setUser_name(String userName) {
-        this.userName = userName;
+        this.user_name = userName;
     }
 }

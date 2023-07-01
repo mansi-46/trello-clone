@@ -11,7 +11,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     //The UserRepository interface extends the JpaRepository interface,
     // which provides a set of predefined methods for basic CRUD operations.
 
-//    User findByUser_Name(String user_name);
 
     User findById(int user_id);
 

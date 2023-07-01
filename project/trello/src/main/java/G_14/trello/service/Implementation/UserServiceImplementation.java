@@ -34,7 +34,7 @@ public class UserServiceImplementation implements UserService {
         user1.setEmail(user.getEmail());
         user1.setUser_name(user1.getUser_name());
         user1.setPassword(user1.getPassword());
-        user1.setSecurityQuestion(user1.getSecurityQuestion());
+        user1.setSecurity_Question(user1.getSecurityQuestion());
         userRepository.save(user1);
         return "User information updated successfully!";
 

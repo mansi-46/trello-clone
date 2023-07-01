@@ -25,41 +25,66 @@ import org.springframework.web.bind.annotation.*;
 
             @PostMapping("/signup")
             public ResponseEntity<String> signUpUser(@RequestBody User user) {
-                if (isEmailValid(user.getEmail()) && isPasswordValid(user.getPassword())) {
-                    userService.createUser(user);
+                 userService.createUser(user);
+                if (user!= null) {
                     return ResponseEntity.ok("User signed up successfully!");
                 } else {
                     return ResponseEntity.badRequest().body("Invalid email or password");
                 }
             }
 
-            @GetMapping("/login/{email}/{password}")
+            @PostMapping("/login/{email}/{password}")
             public ResponseEntity<String> loginUser(@RequestBody User user) {
                 User existingUser = userRepository.findUserByEmail(user.getEmail());
 
                 String test = existingUser.getPassword();
 
-                if (existingUser != null) {
+                if ( test.equals(user.getPassword()) && existingUser != null) {
                     return ResponseEntity.ok("User logged in successfully!");
                 } else {
                     return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
                 }
             }
 
-        @GetMapping("/reset-password")
+        @PutMapping("/reset_password/{password}/{email}")
             public ResponseEntity<String> resetPassword(@RequestBody User user) {
-                // Implement password reset logic
-                User existingUser = userService.findUserByEmail(user.getEmail());
-                if (existingUser != null && existingUser.getSecurityQuestion().equals(user.getSecurityQuestion())) {
-                    // Perform password reset logic
-                    // Update password, send reset confirmation email, etc.
-                    // userService.resetPassword(existingUser, user.getNewPassword());
 
-                    return ResponseEntity.ok("Password reset successful!");
+            User existingUser = userService.findUserByEmail(user.getEmail());
+
+                if (existingUser != null && existingUser.getSecurityQuestion().equals(user.getSecurityQuestion())) {
+
+                     existingUser.setPassword(user.getPassword());
+
+                     return ResponseEntity.ok("Password reset successful!");
                 } else {
                     return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid email or security question");
                 }
+        }
+
+        @GetMapping("/forgot-password/{email}/{securityQuestion}")
+        public ResponseEntity<String> forgotPassword(@RequestBody User user) {
+            User existingUser = userService.findUserByEmail(user.getEmail());
+
+            if (existingUser != null && existingUser.getSecurityQuestion().equals(user.getSecurityQuestion())) {
+
+                return ResponseEntity.ok("Correct user credentials");
+            } else {
+
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Incorrect user credentials");
             }
+        }
+
+
+
+            @PutMapping(path = "/update")
+    /* @RequestBody annotation to bind the request body to a parameter in the
+      controller method. This allows you to receive and parse data sent in the
+      request body, typically in JSON format*/
+        public String updateUser(@RequestBody User user) {
+            return userService.updateUser(user);
+        }
+
+
 
             // Helper methods for validation
 
@@ -94,13 +119,6 @@ import org.springframework.web.bind.annotation.*;
             }
         }
 
-        @PutMapping(path = "/update")
-    /* @RequestBody annotation to bind the request body to a parameter in the
-      controller method. This allows you to receive and parse data sent in the
-      request body, typically in JSON format*/
-        public String updateUser(@RequestBody User user) {
-            return userService.updateUser(user);
-        }
 
         @PostMapping(path = "/save")
         public String createUser(@RequestBody User user) {
