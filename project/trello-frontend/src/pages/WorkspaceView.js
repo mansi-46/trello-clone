@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardContent, Typography, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import Navigation from '../components/Navigation';
 import "../style/WorkspaceList.css"
 
 function WorkspaceList() {
@@ -21,21 +22,15 @@ function WorkspaceList() {
         }
     };
 
-    const getCardColor = (index) => {
-        const colors = ['red', 'blue', 'green', 'orange', 'purple'];
-        const colorIndex = index % colors.length;
-        return colors[colorIndex];
-    };
-
     return (
         <div>
+            <Navigation/>
             <h1>Workspace List</h1>
             {workspaces.map((workspace, index) => (
                 <Card
                     key={workspace.id}
                     variant="outlined"
                     className="workspace-card"
-                    // style={{ marginBottom: '16px', backgroundColor: getCardColor(index) }}
                 >
                     <CardContent className="workspace-card-content">
                         <Typography variant="h5" component="div">

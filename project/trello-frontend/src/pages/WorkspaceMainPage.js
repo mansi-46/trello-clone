@@ -5,7 +5,7 @@ export default function WorkspaceMainPage(){
     return(
         <>
             <div>
-                <Navigation/>
+                <Navigation />
             </div>
         </>
     )

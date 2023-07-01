@@ -25,7 +25,7 @@ export default function Router() {
                 },
                 {
                     path: "WorkspaceView",
-                    element: <WorkspaceView/>
+                    element: <WorkspaceView />
                 },
                 {
                      path: "ViewBoards",
@@ -39,14 +39,14 @@ export default function Router() {
                     element: <Board /> },
                 {
                     path: "WorkspaceEdit",
-                    element: <WorkspaceEdit/>
+                    element: <WorkspaceEdit />
                 },
                 {
                     path: '/WorkspaceEdit/:id',
-                    element: <WorkspaceEdit/>
+                    element: <WorkspaceEdit />
                 },
                 { path: 'boards/ViewBoards/:workspaceId',
-                    element: <ViewBoards/> },
+                    element: <ViewBoards /> },
             ]
         }
     ])
